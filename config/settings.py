@@ -20,7 +20,7 @@ class BotConfig:
     LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     
     # Настройки бота
-    BOT_USERNAME = os.getenv('BOT_USERNAME', 'IsItTrueBot')
+    BOT_USERNAME = os.getenv('BOT_USERNAME', 'Is_ItTrue_Bot')
     
     # Команды бота
     INLINE_COMMAND_TEXT = "Это правда?"

@@ -116,20 +116,23 @@ class IsItTrueBot:
             
             self.logger.info(f"Сгенерирован ответ категории '{category}' для запроса: '{query_text[:30]}...'")
         else:
-            # Обычный режим: показываем кнопку для случайного ответа
+            # Обычный режим: показываем кнопку, ответ генерируется при клике
             self.stats['button_queries'] += 1
+            
             results = [
                 InlineQueryResultArticle(
                     id="fact_check_result",
                     title=BotConfig.INLINE_COMMAND_TEXT,
                     description=BotConfig.INLINE_COMMAND_DESCRIPTION,
                     input_message_content=InputTextMessageContent(
-                        message_text=self._generate_delayed_response(),
+                        message_text=self._generate_delayed_response(),  # Ответ генерируется при клике
                         parse_mode=None
                     ),
                     thumbnail_url=self._get_neutral_icon_url()
                 )
             ]
+            
+            self.logger.info(f"Показана кнопка для кнопочного режима")
         
         # Отправляем результат пользователю
         await update.inline_query.answer(
@@ -151,7 +154,11 @@ class IsItTrueBot:
             str: Случайный ответ
         """
         response_text, category = response_generator.generate_random_response()
-        self.logger.info(f"Сгенерирован ответ категории '{category}' при отправке: {response_text[:50]}...")
+        
+        # Обновляем статистику категорий при фактической генерации ответа
+        self.stats['categories'][category] += 1
+        
+        self.logger.info(f"Сгенерирован ответ категории '{category}' при клике на кнопку: {response_text[:50]}...")
         return response_text
     
     def _format_query_response(self, query_text: str, response_text: str, category: str) -> str:
