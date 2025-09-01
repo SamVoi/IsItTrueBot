@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   isittruebot:
-    build: .
+    image: <your_username>isittruebot:latest
     container_name: isittruebot
     restart: unless-stopped
     
@@ -11,9 +11,6 @@ services:
       - BOT_USERNAME=${BOT_USERNAME:-IsItTrueBot}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - TZ=Europe/Moscow
-    
-    env_file:
-      - .env
     
     deploy:
       resources:
