@@ -6,18 +6,15 @@ services:
     container_name: isittruebot
     restart: unless-stopped
     
-    # Переменные окружения
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - BOT_USERNAME=${BOT_USERNAME:-IsItTrueBot}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - TZ=Europe/Moscow
     
-    # Проброс переменных из .env файла
     env_file:
       - .env
     
-    # Ограничения ресурсов
     deploy:
       resources:
         limits:
@@ -26,8 +23,7 @@ services:
         reservations:
           memory: 128M
           cpus: '0.25'
-    
-    # Проверка здоровья контейнера
+
     healthcheck:
       test: ["CMD", "python", "-c", "import requests; requests.get('https://api.telegram.org', timeout=5)"]
       interval: 30s
@@ -35,14 +31,12 @@ services:
       retries: 3
       start_period: 40s
     
-    # Логирование
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
     
-    # Сеть
     networks:
       - telegram_bots
 
