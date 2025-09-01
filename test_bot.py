@@ -37,19 +37,19 @@ def test_response_generator():
     try:
         from src.response_generator import response_generator
         
-        # Тест генерации 10 ответов
+        # Тест генерации 100 ответов
         categories = {'positive': 0, 'negative': 0, 'uncertain': 0}
         
-        for i in range(10):
+        for i in range(100):
             response, category = response_generator.generate_random_response()
             categories[category] += 1
             
             if i < 3:  # Показываем первые 3 ответа
                 print(f"  {i+1}. [{category}] {response[:50]}...")
         
-        print(f"\n📊 Статистика по 10 ответам:")
+        print(f"\n📊 Статистика по 100 ответам:")
         for cat, count in categories.items():
-            print(f"  {cat}: {count}/10 ({count*10}%)")
+            print(f"  {cat}: {count}/100 ({count*10}%)")
         
         # Тест статистики
         stats = response_generator.get_statistics()

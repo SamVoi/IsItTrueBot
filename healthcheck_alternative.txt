@@ -1,0 +1,9 @@
+# Alternative simple healthcheck for docker-compose.yml
+# Replace the healthcheck section with this:
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.path.append('/app'); from config.settings import BotConfig; BotConfig.validate_config(); print('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

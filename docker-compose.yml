@@ -25,7 +25,7 @@ services:
           cpus: '0.25'
 
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; requests.get('https://api.telegram.org', timeout=5)"]
+      test: ["CMD", "python", "-c", "import sys; sys.path.append('/app'); from config.settings import BotConfig; BotConfig.validate_config(); print('OK')"]
       interval: 30s
       timeout: 10s
       retries: 3

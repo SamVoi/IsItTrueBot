@@ -7,6 +7,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 COPY config/ ./config/
+RUN chmod +x src/healthcheck.py
 RUN useradd --create-home --shell /bin/bash bot_user && \
     chown -R bot_user:bot_user /app
 USER bot_user
